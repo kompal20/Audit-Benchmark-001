@@ -1,14 +1,23 @@
 version: 0.2
-
+        
 phases:
-  build:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
     commands:
-      - echo Entered the build phase...
-      - mvn clean package
+      - echo build started on 'date'
+      - echo building JAR file
+      - mvn clean
+      - mvn compile
+      - mvn package
   post_build:
     commands:
-      - echo Build completed successfully
+      - echo Build completed
+      - mv target/*.jar app.jar
+      - dir
+
 artifacts:
   files:
-    - target/audit-web.war
+    - app.jar
   discard-paths: yes
